@@ -34,10 +34,12 @@ resource "aws_kms_key" "logs" {
 
 resource "aws_cloudwatch_log_group" "api_web" {
   name              = "/ecs/${var.project}-${var.environment}-api-web"
-  retention_in_days = 7
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.logs.arn
 }
 
 resource "aws_cloudwatch_log_group" "worker_gps" {
   name              = "/ecs/${var.project}-${var.environment}-worker-gps"
-  retention_in_days = 7
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.logs.arn
 }
